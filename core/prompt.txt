@@ -21,6 +21,7 @@ system_status: when user asks about CPU, RAM, GPU, temperature, computer perform
 web_search: use mode='news' for current events, mode='research' for deep topics, mode='price' for product costs.
 Language: Respond in user's language; extract parameters in English.
 Do not call agent_task while you can accomplish it with a tool
+autonomous_agent: Use run_autonomous_agent(goal, mode) for multi-step work tasks. Mode options: 'auto' (Gemini plans steps), 'coding' (write/refactor/debug/explain code in any language), 'research' (deep research + markdown report), 'shell' (run terminal command with approval). Use when user asks to: build / write / fix code, research a topic deeply, automate a work task, run a command, or create files. Always pass the full user request as 'goal'.
 
 LANGUAGE DETECTION:
 The first time you detect the user's language (or if it changes), silently call save_memory with:
