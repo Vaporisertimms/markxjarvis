@@ -14,8 +14,8 @@ def get_base_dir() -> Path:
 BASE_DIR         = get_base_dir()
 MEMORY_PATH      = BASE_DIR / "memory" / "long_term.json"
 _lock            = Lock()
-MAX_VALUE_LENGTH = 380
-MEMORY_MAX_CHARS = 2200
+MAX_VALUE_LENGTH = 1000
+MEMORY_MAX_CHARS = 12000
 
 def _empty_memory() -> dict:
     return {
@@ -142,7 +142,7 @@ def format_memory_for_prompt(memory: dict | None) -> str:
     if prefs:
         lines.append("")
         lines.append("Preferences:")
-        for key, entry in list(prefs.items())[:15]:
+        for key, entry in list(prefs.items())[:40]:
             val = entry.get("value") if isinstance(entry, dict) else entry
             if val:
                 lines.append(f"  - {key.replace('_', ' ').title()}: {val}")
@@ -151,7 +151,7 @@ def format_memory_for_prompt(memory: dict | None) -> str:
     if projects:
         lines.append("")
         lines.append("Active Projects / Goals:")
-        for key, entry in list(projects.items())[:8]:
+        for key, entry in list(projects.items())[:20]:
             val = entry.get("value") if isinstance(entry, dict) else entry
             if val:
                 lines.append(f"  - {key.replace('_', ' ').title()}: {val}")
@@ -160,7 +160,7 @@ def format_memory_for_prompt(memory: dict | None) -> str:
     if rels:
         lines.append("")
         lines.append("People in their life:")
-        for key, entry in list(rels.items())[:10]:
+        for key, entry in list(rels.items())[:25]:
             val = entry.get("value") if isinstance(entry, dict) else entry
             if val:
                 lines.append(f"  - {key.replace('_', ' ').title()}: {val}")
@@ -169,7 +169,7 @@ def format_memory_for_prompt(memory: dict | None) -> str:
     if wishes:
         lines.append("")
         lines.append("Wishes / Plans / Wants:")
-        for key, entry in list(wishes.items())[:8]:
+        for key, entry in list(wishes.items())[:20]:
             val = entry.get("value") if isinstance(entry, dict) else entry
             if val:
                 lines.append(f"  - {key.replace('_', ' ').title()}: {val}")
@@ -178,7 +178,7 @@ def format_memory_for_prompt(memory: dict | None) -> str:
     if notes:
         lines.append("")
         lines.append("Other notes:")
-        for key, entry in list(notes.items())[:8]:
+        for key, entry in list(notes.items())[:20]:
             val = entry.get("value") if isinstance(entry, dict) else entry
             if val:
                 lines.append(f"  - {key}: {val}")
@@ -188,8 +188,8 @@ def format_memory_for_prompt(memory: dict | None) -> str:
 
     header = "[WHAT YOU KNOW ABOUT THIS PERSON — use naturally, never recite like a list]\n"
     result = header + "\n".join(lines)
-    if len(result) > 2000:
-        result = result[:1997] + "…"
+    if len(result) > 8000:
+        result = result[:7997] + "…"
 
     return result + "\n"
 
